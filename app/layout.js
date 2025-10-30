@@ -21,7 +21,7 @@ export const metadata = {
   creator: "Nfarms",
   publisher: "Nfarms",
   icons: {
-    icon: "/logo_main.png",
+    icon: "/logo_icon.png",
   },
   openGraph: {
     title: "Nfarms Staycation | Nature Retreat & Farmstay Experience",
