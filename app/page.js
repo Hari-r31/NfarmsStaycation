@@ -11,6 +11,7 @@ import ServicesSection from '@/components/ServicesSection';
 import GallerySection from '@/components/GallerySection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import PricingSection from '@/components/PricingSection';
+import ContactSection from '@/components/ContactSection';
 import FAQ from '@/components/Faq';
 import Footer from '@/components/Footer';
 import { ReactLenis } from 'lenis/react';
@@ -66,9 +67,13 @@ export default function Home() {
             <PricingSection />
           </section>
 
+                    <section id="contact">
+            <ContactSection />
+          </section>
           <section id="faq">
             <FAQ />
           </section>
+
 
           <footer id="footer">
             <Footer />
