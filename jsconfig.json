@@ -1,12 +1,39 @@
 {
-    "compilerOptions": {
-      "baseUrl": ".",
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
       "paths": {
         "@/*": ["./*"],
         "@/components/*": ["./components/*"],
         "@/lib/*": ["./lib/*"],
         "@/app/*": ["./app/*"]
       }
-    },
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+, "app/api/availability/route.js", "app/api/booking/route.js", "app/api/razorpay/order/route.js"  ],
     "exclude": ["node_modules", ".next"]
-  }
+}

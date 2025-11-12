@@ -14,8 +14,8 @@ export default function XBanner() {
   const orangeX = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
   const greenX = useTransform(scrollYProgress, [0, 1], ["-50%", "0%"]);
 
-  const orangeTags = ["#Scheduling", "#Consulting", "#Support", "#Travel", "#Experience"];
-  const greenTags = ["#Rooms", "#Booking", "#Reservation", "#Hotel", "#Luxury"];
+  const orangeTags = ["#Scheduling", "#Consulting", "#Support", "#Travel", "#Experience", "#Scheduling", "#Consulting", "#Support", "#Travel", "#Experience"];
+  const greenTags = ["#Rooms", "#Booking", "#Reservation", "#Hotel", "#Luxury, #Rooms", "#Booking", "#Reservation", "#Hotel", "#Luxury"];
 
   return (
     <section

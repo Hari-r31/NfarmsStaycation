@@ -42,7 +42,7 @@ const AboutSection = () => {
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
             />
             <div className="absolute top-6 right-6 bg-white rounded-lg px-6 py-3 shadow-lg">
-              <div className="text-3xl font-bold text-green-600">20+</div>
+              <div className="text-3xl font-bold text-green-600">50+</div>
               <div className="text-sm text-gray-600">Guests</div>
             </div>
           </div>
@@ -58,9 +58,18 @@ const AboutSection = () => {
             <p className="text-gray-600 text-lg mb-8 leading-relaxed">
               Bond with loved ones through indoor games, bonfire nights, and barbecue dinners. Relax by our refreshing swimming pool, explore rustic village-themed attractions, and create unforgettable memories in the heart of nature.
             </p>
-            <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg">
-              Discover N Farms
-            </Button>
+<Button
+  onClick={() =>
+    document.getElementById('getintouch')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
+  className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg"
+>
+  Discover N Farms
+</Button>
+
           </div>
         </div>
 

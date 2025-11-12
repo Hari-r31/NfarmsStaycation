@@ -20,7 +20,7 @@ const FAQ = () => {
           {/* Left Image */}
           <div className="mx-auto w-full">
             <Image
-              src="/resort/faq/faq-image.jpeg"
+              src="/resort/hero/whole.jpeg"
               alt="N Farms Staycation FAQ"
               width={680}
               height={644}
@@ -93,8 +93,11 @@ const FAQ = () => {
                   4. What are the check-in and check-out timings?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Standard check-in is at 12:00 PM, and check-out is by 10:00
-                  AM. Flexible timings may be arranged depending on availability.
+                  Booking hours are from <strong>11:00 AM to 10:00 AM</strong>{" "}
+                  (23 hours total). We maintain a full-day booking window to
+                  ensure guests have a complete and uninterrupted stay.
+                  Early check-in or late check-out may be available depending on
+                  schedule and availability.
                 </AccordionContent>
               </AccordionItem>
 
@@ -106,6 +109,29 @@ const FAQ = () => {
                   Yes! We provide farm-fresh vegetarian and non-vegetarian meals
                   prepared by our in-house chef. Guests may also bring their own
                   ingredients for a personalized BBQ experience.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-6">
+                <AccordionTrigger>
+                  6. What is the Advance Payment Policy?
+                </AccordionTrigger>
+                <AccordionContent>
+                  To confirm your booking, an advance payment of{" "}
+                  <strong>INR 3,000</strong> is required. This amount is{" "}
+                  <strong>refundable or adjustable</strong> toward your booking
+                  if the stay is completed successfully and the property is
+                  maintained well.
+                  <br />
+                  <br />
+                  In case of <strong>damages or repairs</strong>, the respective
+                  amount will be deducted from the advance.
+                  <br />
+                  <br />
+                  <strong>No-Show Policy:</strong> If the guest fails to arrive
+                  on the booked date without prior notice, the advance
+                  <strong> will not be refunded</strong> as the day remains
+                  blocked for other potential guests.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

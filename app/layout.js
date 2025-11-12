@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
     image: "https://nfarms.in/logo_main.png",
     "@id": "https://nfarms.in",
     url: "https://nfarms.in",
-    telephone: "+91-9491147433",
+    telephone: "+91 93939 35050",
     priceRange: "₹₹",
     description:
       "Nfarms Staycation offers a tranquil farmstay experience surrounded by lush greenery. Perfect for family vacations, wellness retreats, and couples getaways.",

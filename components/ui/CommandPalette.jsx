@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+'use client';
+
+import { useState, useEffect } from 'react';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import {
   CommandDialog,
   CommandEmpty,
@@ -7,84 +9,112 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from '@/components/ui/command';
 import {
   Search,
-  ExternalLink,
   Mail,
   Phone,
-  Code2,
   Sparkles,
   MessageSquare,
-} from "lucide-react";
+  Home,
+  Info,
+  Image as Gallery,
+  DollarSign,
+  HelpCircle,
+} from 'lucide-react';
 
-export default function CommandPalette({ className = "" }) {
+export default function CommandPalette({ className = '' }) {
   const [open, setOpen] = useState(false);
 
+  // ⌘K (Mac) or Ctrl+K (Windows)
   useEffect(() => {
     const down = (e) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+      if (e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((prev) => !prev);
       }
     };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
   }, []);
 
+  // Lock background scroll when dialog is open
+  useEffect(() => {
+    if (open) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
+  }, [open]);
+
+  // Command configuration
   const commands = [
     {
-      group: "Navigation",
+      group: 'Navigation',
       items: [
         {
-          name: "Home",
+          name: 'Home',
           action: () =>
-            document.getElementById("home")?.scrollIntoView({ behavior: "smooth" }),
-          icon: Code2,
+            document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' }),
+          icon: Home,
         },
         {
-          name: "Services",
+          name: 'About Us',
           action: () =>
-            document.getElementById("services")?.scrollIntoView({ behavior: "smooth" }),
+            document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }),
+          icon: Info,
+        },
+        {
+          name: 'Services',
+          action: () =>
+            document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }),
           icon: Sparkles,
         },
         {
-          name: "Portfolio",
+          name: 'Gallery',
           action: () =>
-            document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" }),
-          icon: ExternalLink,
+            document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' }),
+          icon: Gallery,
         },
         {
-          name: "Contact",
+          name: 'Pricing',
           action: () =>
-            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }),
+            document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }),
+          icon: DollarSign,
+        },
+        {
+          name: 'FAQ',
+          action: () =>
+            document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' }),
+          icon: HelpCircle,
+        },
+        {
+          name: 'Contact',
+          action: () =>
+            document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' }),
           icon: Mail,
         },
       ],
     },
     {
-      group: "Actions",
+      group: 'Quick Actions',
       items: [
         {
-          name: "Email Us",
+          name: 'Email Us',
           action: () =>
             window.open(
-              "https://mail.google.com/mail/?view=cm&fs=1&to=hello@thebuild.in&su=I%20need%20more%20info",
-              "_blank"
+              'https://mail.google.com/mail/?view=cm&fs=1&to=hello@thebuild.in&su=I%20need%20more%20info',
+              '_blank'
             ),
           icon: Mail,
         },
         {
-          name: "Call Us",
-          action: () => window.open("tel:+919491147433"),
+          name: 'Call Us',
+          action: () => window.open('tel:919393935050'),
           icon: Phone,
         },
         {
-          name: "Chat with Us on WhatsApp",
+          name: 'Chat on WhatsApp',
           action: () => {
-            const message = "Hi, I'd like to chat!";
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/+919491147433?text=${encodedMessage}`);
+            const msg = encodeURIComponent("Hi, I'd like to know more!");
+            window.open(`https://wa.me/919393935050?text=${msg}`, '_blank');
           },
           icon: MessageSquare,
         },
@@ -97,64 +127,108 @@ export default function CommandPalette({ className = "" }) {
     setOpen(false);
   };
 
+  // Trap mousewheel scroll inside dialog list
+  useEffect(() => {
+    if (!open) return;
+    const scrollArea = document.getElementById('command-scroll');
+    if (!scrollArea) return;
+
+    const handleWheel = (e) => {
+      const { scrollTop, scrollHeight, clientHeight } = scrollArea;
+      const atTop = scrollTop === 0;
+      const atBottom = scrollTop + clientHeight >= scrollHeight;
+
+      if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+        e.preventDefault();
+      }
+      e.stopPropagation();
+    };
+
+    const handleTouch = (e) => e.stopPropagation();
+
+    scrollArea.addEventListener('wheel', handleWheel, { passive: false });
+    scrollArea.addEventListener('touchmove', handleTouch, { passive: false });
+
+    return () => {
+      scrollArea.removeEventListener('wheel', handleWheel);
+      scrollArea.removeEventListener('touchmove', handleTouch);
+    };
+  }, [open]);
+
   return (
     <>
-      {/* ✨ Trigger button (search input look-alike) */}
-<button
-  onClick={() => setOpen(true)}
-  className={`hidden md:flex items-center justify-between w-full bg-white/10 backdrop-blur-lg border border-black/20 
-              px-4 py-2 rounded-full text-sm text-gray hover:bg-white/15 hover:border-white/30 
-              transition-all duration-300 shadow-[0_0_12px_rgba(255,255,255,0.05)] ${className}`}
->
-
+      {/* 🔍 Trigger Button */}
+      <button
+        onClick={() => setOpen(true)}
+        className={`hidden md:flex items-center justify-between w-full bg-white/10 dark:bg-white/5 backdrop-blur-md border border-gray-400/20 
+          px-4 py-2.5 rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-white/20 
+          transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] ${className}`}
+      >
         <div className="flex items-center gap-2">
-          <Search className="h-4 w-4 text-gray-600" />
-          <span className="text-gray-600">Search...</span>
+          <Search className="h-4 w-4 text-green-700 dark:text-green-400" />
+          <span className="text-gray-600 dark:text-gray-300">Search...</span>
         </div>
 
         <div className="flex items-center gap-1 rounded-md border border-white/30 bg-white/10 px-1.5 py-0.5 
-                        font-mono text-[11px] font-medium text-gray-600 shadow-inner">
+          font-mono text-[11px] font-medium text-gray-600 dark:text-gray-400 shadow-inner">
           <span className="text-xs opacity-90">⌘</span>
           <span className="opacity-90">K</span>
         </div>
       </button>
 
-      {/* 🧭 Command palette modal */}
+      {/* 🧭 Command Palette Modal */}
       <CommandDialog
         open={open}
         onOpenChange={setOpen}
-        className="border border-white/20 bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl"
+        className="flex flex-col max-h-[80vh] overflow-hidden rounded-2xl 
+                   border border-white/20 bg-white/10 dark:bg-black/40 backdrop-blur-xl 
+                   shadow-[0_0_25px_rgba(0,0,0,0.3)]"
       >
         <VisuallyHidden>
           <h2>Command Palette</h2>
         </VisuallyHidden>
 
-        <div className="border-b border-white/10">
-          <CommandInput placeholder="Type a command or search..." />
+        {/* Input */}
+        <div className="border-b border-white/10 dark:border-white/20">
+          <CommandInput
+            placeholder="Type a command or search..."
+            className="text-gray-800 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+          />
         </div>
 
-        <CommandList className="p-2">
-          <CommandEmpty>No results found.</CommandEmpty>
+        {/* Scrollable Command List */}
+        <div
+  id="command-scroll"
+  className="flex-1 overflow-y-auto overscroll-contain scroll-smooth p-3 
+             max-h-[60vh] scrollbar-thin scrollbar-thumb-green-600/40 scrollbar-track-transparent"
+  onWheel={(e) => e.stopPropagation()} // prevent event bubbling to background
+  onTouchMove={(e) => e.stopPropagation()}
+>
 
-          {commands.map((group) => (
-            <CommandGroup
-              key={group.group}
-              heading={group.group}
-              className="text-gray-300"
-            >
-              {group.items.map((item) => (
-                <CommandItem
-                  key={item.name}
-                  onSelect={() => handleCommand(item.action)}
-                  className="flex items-center gap-3 cursor-pointer hover:bg-white/10 rounded-lg px-2 py-1.5"
-                >
-                  <item.icon className="h-4 w-4 text-gray-400" />
-                  <span className="text-gray-100">{item.name}</span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          ))}
-        </CommandList>
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+
+            {commands.map((group) => (
+              <CommandGroup
+                key={group.group}
+                heading={group.group}
+                className="text-gray-400 dark:text-gray-500 uppercase text-[11px] tracking-wider font-semibold"
+              >
+                {group.items.map((item) => (
+                  <CommandItem
+                    key={item.name}
+                    onSelect={() => handleCommand(item.action)}
+                    className="flex items-center gap-3 cursor-pointer hover:bg-green-600/20 text-gray-900 dark:text-gray-100 
+                      rounded-lg px-3 py-2 transition-colors duration-150"
+                  >
+                    <item.icon className="h-4 w-4 text-green-700 dark:text-green-400" />
+                    <span>{item.name}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            ))}
+          </CommandList>
+        </div>
       </CommandDialog>
     </>
   );

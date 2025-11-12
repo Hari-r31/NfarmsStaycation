@@ -24,8 +24,8 @@ const featuredProprty = [
 ];
 
 const features = [
-  { icon: BedDouble, label: "4 Bedrooms" },
-  { icon: Bath, label: "3 Bathrooms" },
+  { icon: BedDouble, label: "3 Bedrooms" },
+  { icon: Bath, label: "4 Bathrooms" },
   { icon: Car, label: "Private Parking" },
   { icon: Martini, label: "Pool & Lounge Area" },
 ];
